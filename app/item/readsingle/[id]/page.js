@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const getSingleItem = async(id) => {
     
-    const response = await fetch(`http://localhost:3000/api/item/readsingle/${id}`, {cache: "no-store"});
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`, {cache: "no-store"});
     const jsonData = await response.json();
     const singleItem = jsonData.singleItem;
     return singleItem;
@@ -18,7 +18,11 @@ const ReadsingleItem = async(context) => {
    // console.log(singleItem);
     return(
         <>
-        <div>
+        <div className="grid-container-si"> 
+            constructor(parameters) {
+                
+            }
+        
             <div>
                 <Image src={singleItem.image} width={750} height={500} 
                 alt="item-image" priority />
@@ -28,6 +32,12 @@ const ReadsingleItem = async(context) => {
                 <h1>{singleItem.title}</h1>
                 <h2>{singleItem.price}</h2>
                 <p>{singleItem.description}</p>
+
+                <div>
+                    <Link href={`/item/update/${singleItem._id}`}>アイテム編集</Link><br />
+                    <Link href={`/item/delete/${singleItem._id}`}>アイテム削除</Link>
+
+                </div>
             </div>
         </div>
         <Link href="/"><h2>topページへ</h2></Link>

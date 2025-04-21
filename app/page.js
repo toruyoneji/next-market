@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const getAllItem = async() => {
 
-  const response = await fetch("http://localhost:3000/api/item/readall", {cache: "no-store"});
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/readall`, {cache: "no-store"});
   const dataJson = await response.json();
   //console.log(dataJson);
   const allItems = dataJson.allItems
@@ -12,11 +12,12 @@ const getAllItem = async() => {
 
 const ReadallItems = async() => {
 
+    //console.log(process.env.NEXT_PUBLIC_URL);
     const allItems = await getAllItem();
     console.log(allItems);
 
   return(
-    <div>
+    <div className="grid-container-in">
       {allItems.map(item => 
         
         <Link href={`/item/readsingle/${item._id}`} key={item._id}>
