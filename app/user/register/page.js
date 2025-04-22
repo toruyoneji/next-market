@@ -12,7 +12,7 @@ const Register = () => {
 
         try {
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/register`, {
+            const response = await fetch("http://localhost:3000/api/user/register", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -37,7 +37,7 @@ const Register = () => {
 
     return(
         <div>
-            <h1 className="page-title">ユーザー登録</h1>
+            <h1>ユーザー登録</h1>
 
             <form onSubmit={handleSubmit}>
                 <input value={name} onChange={(e) => setName(e.target.value)} 

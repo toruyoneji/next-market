@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import useAuth from "@/app/utils/useAuth";
 
 const CreateItem = (e) => {
 
@@ -15,15 +14,12 @@ const CreateItem = (e) => {
 
     const router = useRouter();
 
-    const loginUserEmail = useAuth();
-    //console.log(loginUserEmail);
-
     const handleSubmit = async(e) => {
 
         e.preventDefault();
 
         try {
-           const response =  await fetch(`${process.env.NEXT_PUBLIC_URL}/api/item/create`, {
+           const response =  await fetch("http://localhost:3000/api/item/create", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -35,7 +31,7 @@ const CreateItem = (e) => {
                     price: price,
                     image: image,
                     description: description,
-                    email: "loginUserEmail",
+                    email: "ダミーデータ",
                 })
             });
 
@@ -50,10 +46,9 @@ const CreateItem = (e) => {
         }
     }
 
-    if(loginUserEmail) {
     return(
         <div>
-            <h1 className="page-title">アイテム作成</h1>
+            <h1>アイテム作成</h1>
             <form onSubmit={handleSubmit}>
                 <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" name="title" placeholder="アイテム名" required/>
                 <input value={price} onChange={(e) => setPrice(e.target.value)} type="text" name="price" placeholder="価格" required/>
@@ -65,8 +60,7 @@ const CreateItem = (e) => {
             </form>
         </div>
     );
- }
- 
+
 }
 
 export default CreateItem;
